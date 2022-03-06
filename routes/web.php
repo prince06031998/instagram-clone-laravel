@@ -28,6 +28,8 @@ Route::post('/auth/register', [AuthController::class, 'store'])->name('auth.stor
 Route::get('/auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
 Route::get('/auth/edit', [AuthController::class, 'edit'])->name('auth.edit');
 Route::post('/auth/update', [AuthController::class, 'update'])->name('auth.update');
+Route::get('/auth/resetPassword', [AuthController::class, 'viewReset'])->name('auth.v-reset');
+Route::post('/auth/resetpassword', [AuthController::class, 'resetPassword'])->name('auth.reset_password');
 
 
 

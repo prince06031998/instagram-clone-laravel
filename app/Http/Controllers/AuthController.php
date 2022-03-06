@@ -183,6 +183,35 @@ class AuthController extends Controller
         return redirect()->route('auth.profile')->with('mssg', 'Cap nhat thong tin thanh cong');
     }
 
+    public function viewReset(){
+        return view('auth.reset-password');
+    }
+
+    public function resetPassword(Request $request){
+        $this->validate($request, [
+            'oldPassword'=> 'required',            
+            'password'=> 'required',
+            'repeat_password'=> 'required'                              
+        ]);
+
+        $user = User::where('id',Session::get('id'))->first();
+        if(Hash::check($request->oldPassword,$user->password)){
+            if($request->password == $request->repeat_password){
+                $p = Hash::make($request->password);
+                User::where('id', Session::get('id'))->update(['password' => $p]);
+                return redirect()->route('auth.profile')->with('mssg', 'doi mat khau thanh cong');
+                
+            }
+            else if($request->password != $request->repeat_password)
+            {
+                return redirect()->route('auth.v-reset')->with('mssg', 'mat khau nhap lai khong khop');
+            }
+        }
+        else{
+            return redirect()->route('auth.v-reset')->with('mssg', 'mat khau cu khong khop');
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      *
