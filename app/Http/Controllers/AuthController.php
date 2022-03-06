@@ -130,22 +130,17 @@ class AuthController extends Controller
      * 
      * @return \Illuminate\Http\Response
      */
-    protected function authenticated(Request $request, $user)
-    {
-        return redirect();
-    }
-
-
-
+    
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function profile()
     {
-        //
+        $user =User::where('id', Session::get('id'))->get();
+        return view('profile.profile',compact('user'));
     }
 
     /**
@@ -154,9 +149,11 @@ class AuthController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+        $user =User::where('id', Session::get('id'))->get();
+        return view('profile.edit-profile',compact('user'));
+
     }
 
     /**
@@ -166,9 +163,24 @@ class AuthController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name'=> 'required',            
+            'avatar'=> 'required'                              
+        ]);
+
+        $imageName = time() . '.' . $request->avatar->extension();
+        $request->avatar->move(public_path('images'), $imageName);
+
+        User::where('id',Session::get('id'))->update([
+            'name' => $request->name,
+            'avatar'=> $imageName
+        ]);
+
+        Session::put('name',$request->name);
+
+        return redirect()->route('auth.profile')->with('mssg', 'Cap nhat thong tin thanh cong');
     }
 
     /**

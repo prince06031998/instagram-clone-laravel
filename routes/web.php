@@ -21,10 +21,13 @@ Route::get('/', function () {
 //Auth
 
 Route::get('/auth/login', [AuthController::class, 'index'])->name('auth.login');
+Route::get('/auth/profile', [AuthController::class, 'profile'])->name('auth.profile');
 Route::post('/auth/loginAction', [AuthController::class, 'loginAction'])->name('auth.login_action');
 Route::get('/auth/register', [AuthController::class, 'create'])->name('auth.register');
 Route::post('/auth/register', [AuthController::class, 'store'])->name('auth.store_register');
 Route::get('/auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
+Route::get('/auth/edit', [AuthController::class, 'edit'])->name('auth.edit');
+Route::post('/auth/update', [AuthController::class, 'update'])->name('auth.update');
 
 
 
