@@ -32,7 +32,7 @@
                                 <hr class="dropdown-divider">
                             </li>
                             <li><a class="dropdown-item" href="{{route('auth.profile')}}">Profile</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <li><a class="dropdown-item" href="{{route('auth.viewChangePassword')}}">Change Password</a></li>
                         </ul>
                     </li>
                    
