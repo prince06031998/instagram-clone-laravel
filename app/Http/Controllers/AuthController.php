@@ -81,18 +81,18 @@ class AuthController extends Controller
         $users = User::get();
         foreach ($users as $user) {
             if ($request->email != $user->email) {
-                return redirect()->route('auth.login')->with('mssg', 'Dang nhap that bai');
+                return redirect()->route('auth.login')->with('mssg', 'Sai Email');
             } else if ($user->email == $request->email && Hash::check($request->password, $user->password) == true) {
                 $data = [
                     'name' => $user->name,
-                    'id' => $user->id,
+                    'id' => $user->id
 
                 ];
                 Session::put($data);
 
                 return view('auth.dashboard', compact('user'))->with('mssg', 'Dang nhap thanh cong');
             } else {
-                return redirect()->route('auth.login')->with('mssg', 'Dang nhap that bai');
+                return redirect()->route('auth.login')->with('mssg', 'Sai mat khauy');
             }
         }
 
@@ -183,32 +183,32 @@ class AuthController extends Controller
         return redirect()->route('auth.profile')->with('mssg', 'Cap nhat thong tin thanh cong');
     }
 
-    public function viewReset(){
-        return view('auth.reset-password');
+    public function viewChangePassword(){
+        return view('auth.changePassword');
     }
 
     public function changePassword(Request $request){
         $this->validate($request, [
             'oldPassword'=> 'required',            
             'password'=> 'required',
-            'repeatPassword'=> 'required'                              
+            'repeatPassword'=> 'required',                              
         ]);
 
         $user = User::where('id',Session::get('id'))->first();
         if(Hash::check($request->oldPassword,$user->password)){
-            if($request->password == $request->repeat_password){
+            if($request->password == $request->repeatPassword){
                 $p = Hash::make($request->password);
                 User::where('id', Session::get('id'))->update(['password' => $p]);
                 return redirect()->route('auth.profile')->with('mssg', 'doi mat khau thanh cong');
                 
             }
-            else if($request->password != $request->repeat_password)
+            else if($request->password != $request->repeatPassword)
             {
-                return redirect()->route('auth.viewChangePassword')->with('mssg', 'mat khau nhap lai khong khop');
+                return redirect()->route('auth.changePassword')->with('mssg', 'mat khau nhap lai khong khop');
             }
         }
         else{
-            return redirect()->route('auth.viewChangePassword')->with('mssg', 'mat khau cu khong khop');
+            return redirect()->route('auth.changePassword')->with('mssg', 'mat khau cu khong khop');
         }
     }
 

@@ -42,7 +42,7 @@
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
-                                            <input type="password" name="repeat_password" id="form3Example4cd" class="form-control" required autofocus />
+                                            <input type="password" name="repeatPassword" id="form3Example4cd" class="form-control" required autofocus />
                                             <label class="form-label" for="form3Example4cd">Repeat your password</label>
                                             </br>
                                             <span class="text-danger font-weight-bold">{{Session::get('mssg')}}</span>
