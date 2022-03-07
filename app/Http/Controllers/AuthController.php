@@ -191,7 +191,7 @@ class AuthController extends Controller
         $this->validate($request, [
             'oldPassword'=> 'required',            
             'password'=> 'required',
-            'repeat_password'=> 'required'                              
+            'repeatPassword'=> 'required'                              
         ]);
 
         $user = User::where('id',Session::get('id'))->first();
