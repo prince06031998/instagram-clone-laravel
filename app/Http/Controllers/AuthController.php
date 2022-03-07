@@ -187,7 +187,7 @@ class AuthController extends Controller
         return view('auth.reset-password');
     }
 
-    public function resetPassword(Request $request){
+    public function changePassword(Request $request){
         $this->validate($request, [
             'oldPassword'=> 'required',            
             'password'=> 'required',
@@ -204,11 +204,11 @@ class AuthController extends Controller
             }
             else if($request->password != $request->repeat_password)
             {
-                return redirect()->route('auth.v-reset')->with('mssg', 'mat khau nhap lai khong khop');
+                return redirect()->route('auth.viewChangePassword')->with('mssg', 'mat khau nhap lai khong khop');
             }
         }
         else{
-            return redirect()->route('auth.v-reset')->with('mssg', 'mat khau cu khong khop');
+            return redirect()->route('auth.viewChangePassword')->with('mssg', 'mat khau cu khong khop');
         }
     }
 

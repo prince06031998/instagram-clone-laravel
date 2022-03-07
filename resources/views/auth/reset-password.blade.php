@@ -19,7 +19,7 @@
                                     </ul>
                                 </div>
                                 @endif
-                                <form method="POST" action="{{route ('auth.reset_password')}}" class="mx-1 mx-md-4">
+                                <form method="POST" action="{{route ('auth.changePassword')}}" class="mx-1 mx-md-4">
                                     @csrf
                                     
 
