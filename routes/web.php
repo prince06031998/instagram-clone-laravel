@@ -30,6 +30,11 @@ Route::get('/auth/edit', [AuthController::class, 'edit'])->name('auth.edit');
 Route::post('/auth/update', [AuthController::class, 'update'])->name('auth.update');
 Route::get('/auth/changePassword', [AuthController::class, 'viewChangePassword'])->name('auth.viewChangePassword');
 Route::post('/auth/changePassword', [AuthController::class, 'changePassword'])->name('auth.changePassword');
+Route::get('/auth/forgotPassword', [AuthController::class, 'viewForgotPassword'])->name('auth.viewForgotPassword');
+Route::post('/auth/forgotPassword', [AuthController::class, 'forgotPassword'])->name('auth.forgotPassword');
+Route::get('/auth/resetPassword/{token}', [AuthController::class, 'viewResetPassword'])->name('auth.viewResetPassword');
+Route::post('/auth/resetPassword', [AuthController::class, 'resetPassword'])->name('auth.resetPassword');
+Route::get('/test', [AuthController::class, 'test'])->name('test');
 
 
 

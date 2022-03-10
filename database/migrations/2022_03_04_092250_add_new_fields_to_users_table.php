@@ -16,6 +16,7 @@ class AddNewFieldsToUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('username')->unique();
             $table->string('avatar');
+            
         });
     }
 
