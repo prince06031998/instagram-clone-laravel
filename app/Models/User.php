@@ -48,4 +48,8 @@ class User extends Authenticatable
     public function getAuthPassword() {
         return $this->UserEmail;
     }
+
+    public function posts(){
+        return $this->hasMany(Post::class,'userId');
+    }
 }
