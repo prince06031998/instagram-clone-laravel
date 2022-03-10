@@ -22,17 +22,10 @@
                                 <form method="POST" action="{{route ('auth.resetPassword')}}" class="mx-1 mx-md-4">
                                     @csrf
 
+                                    @foreach($user as $u)
+                                    <input type="hidden" value="{{ $u->token }}" name="token" id="form3Example3c" class="form-control" required autofocus />
+                                    <input type="hidden" name="email" value="{{$u->email}}" id="form3Example4c" class="form-control" required autofocus />
 
-                                    <input type="hidden" value="{{ $token }}" name="token" id="form3Example3c" class="form-control" required autofocus />
-
-
-                                    <div class="d-flex flex-row align-items-center mb-4">
-                                        <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                                        <div class="form-outline flex-fill mb-0">
-                                            <input type="email" name="email" id="form3Example3c" class="form-control" required autofocus />
-                                            <label class="form-label" for="form3Example3c">Your Email</label>
-                                        </div>
-                                    </div>
 
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
@@ -55,7 +48,7 @@
                                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                                         <button type="submit" class="btn btn-primary btn-lg">Change Password</button>
                                     </div>
-
+                                    @endforeach
                                 </form>
 
                             </div>

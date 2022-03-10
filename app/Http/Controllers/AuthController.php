@@ -250,21 +250,23 @@ class AuthController extends Controller
                 $message->subject('Reset Password');
             });
 
-            return redirect('/')->with('mssg', 'We have e-mailed your password reset link! (Check your spam folder if you do not receive out email)');
+            return redirect()->route('auth.viewForgotPassword')->with('mssg', 'We have e-mailed your password reset link! (Check your spam folder if you do not receive out email)');
         } else {
-            return redirect('/')->with('mssg', 'cc');
+            return redirect()->route('auth.viewForgotPassword')->with('mssg', 'Your email is not match our records !');
         }
     }
 
     public function viewResetPassword($token)
     {
-        return view('auth.resetPassword', ['token' => $token]);
+
+        $user = DB::table('password_resets')->where('token',$token)->get();
+        return view('auth.resetPassword', compact('user'));
     }
 
     public function resetPassword(Request $request)
     {
         $this->validate($request, [
-            'email' => 'required|email',
+            'email' => 'required',
             'password' => 'required',
             'repeatPassword' => 'required'
         ]);
@@ -283,16 +285,13 @@ class AuthController extends Controller
                 DB::table('password_resets')->where('email', $request->email)->delete();
                 return redirect('/')->with('mssg', 'Reset password successfully');
             } else if ($time > 900) {
+                DB::table('password_resets')->where('email', $request->email)->delete();
                 return back()->with('mssg', 'Token is out of date. The acccess token is only available in 15 minutes');
             }
         } else {
-            return back()->with('mssg', 'Ivalid repeatPassword');
+            return back()->with('mssg', 'Password and repeat Password are not matched');
         }
     }
 
-    public function test()
-    {
-        $test = DB::table('password_resets')->get();
-        return view('test', compact('test'));
-    }
+   
 }
