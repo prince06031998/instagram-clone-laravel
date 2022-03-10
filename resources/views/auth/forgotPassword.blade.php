@@ -10,7 +10,7 @@
                             <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
                                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Forgot Password</p>
-                                {{Session::get('mssg')}}
+                               <h1 class="text-danger justify-content-center font-weight-bold">{{Session::get('mssg')}}</h1> 
                                 @if ($errors->any())
                                 <div class="alert alert-danger">
                                     <ul>
