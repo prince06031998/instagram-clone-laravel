@@ -34,6 +34,7 @@
                             <li><a class="dropdown-item" href="{{route('auth.profile')}}">Profile</a></li>
                             <li><a class="dropdown-item" href="{{route('auth.viewChangePassword')}}">Change Password</a></li>
                             <li><a class="dropdown-item" href="{{route('posts.create')}}">Create Post</a></li>
+                            <li><a class="dropdown-item" href="{{route('posts.myPost')}}">My Post</a></li>
                         </ul>
                     </li>
                    

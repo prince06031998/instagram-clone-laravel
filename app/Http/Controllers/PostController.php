@@ -72,9 +72,11 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($id)
+
     {
-        //
+        $post = Post::where('id',$id)->first();
+        return view('posts.show', compact('post'));
     }
 
     /**
@@ -109,5 +111,11 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
+    }
+
+    public function myPost(){
+         $posts = Post::where('userId', Session::get('id'))->get();
+         return view('posts.myPost',compact('posts'));
+        
     }
 }

@@ -16,6 +16,7 @@
                 <p>{{$p->created_at}}</p>
                 {{$p->status}}
                 <img src="../images/{{$p->images[0]}}" class="d-block w-100" alt="">
+                <a href="{{route('posts.show',$p->id)}}" class="btn-danger">Read</a>
             </div>
         </li>
         <hr>
