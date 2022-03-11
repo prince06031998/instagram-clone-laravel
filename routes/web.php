@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PostController;
 use App\Models\User;
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +35,13 @@ Route::get('/auth/forgotPassword', [AuthController::class, 'viewForgotPassword']
 Route::post('/auth/forgotPassword', [AuthController::class, 'forgotPassword'])->name('auth.forgotPassword');
 Route::get('/auth/resetPassword/{token}', [AuthController::class, 'viewResetPassword'])->name('auth.viewResetPassword');
 Route::post('/auth/resetPassword', [AuthController::class, 'resetPassword'])->name('auth.resetPassword');
-Route::get('/test', [AuthController::class, 'test'])->name('test');
+
+//post
+Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
+Route::post('/posts/create', [PostController::class, 'store'])->name('posts.createPost');
+
+
 
 
 
