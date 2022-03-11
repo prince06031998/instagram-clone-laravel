@@ -110,7 +110,7 @@ class PostController extends Controller
     {
         $this->validate($request, [
             'status' => 'required',
-            'images' => 'required'
+            
         ]);
         $images = array();
         if ($files = $request->file('images')) {
@@ -127,6 +127,12 @@ class PostController extends Controller
                 $file->move('images', $name);
                 $images[] = $name;
             }
+        }
+        else
+        {
+            $get = Post::where('id',$id)->first();
+            $images = $get->images;
+
         }
 
         Post::where('id', $id)->update([
