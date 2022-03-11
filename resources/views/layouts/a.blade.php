@@ -49,7 +49,7 @@
                     @endif
                     
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                        <a class="nav-link active" href="{{route('posts.index')}}">All Post</a>
                     </li>
                 </ul>
                 <form class="d-flex">

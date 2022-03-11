@@ -19,7 +19,7 @@
             </td>
             <td>
                 <a href="{{route('posts.show',$post->id)}}" class="button btn-success">View</a>
-                <a href="" class="button btn-primary">Edit</a>
+                <a href="{{route('posts.edit',$post->id)}}" class="button btn-primary">Edit</a>
                 <a href="" class="button btn-danger">Delete</a>
             </td>
         </tr>
