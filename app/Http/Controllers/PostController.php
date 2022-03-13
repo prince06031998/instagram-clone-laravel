@@ -92,10 +92,10 @@ class PostController extends Controller
 
         $post = Post::where('id', $id)->first();
 
-        if ($post->userId == Session::get('id')) {
+        if ($this->currentUser->id ==  $post->userId) {
             return view('posts.edit', compact('post'));
         } else {
-            return redirect('/')->with('mssg', 'this place is not for you');
+            return redirect('/posts/mypost')->with('mssg', 'this place is not for you');
         }
     }
 
@@ -115,11 +115,7 @@ class PostController extends Controller
         $images = array();
         if ($files = $request->file('images')) {
             foreach ($files as $file) {
-
-
-                //$name = time() . '.' . $file->extension();
                 $name = $file->getClientOriginalName();
-                
                 $path = public_path('images/'.$name);
                 if (File::exists($path)) {
                     unlink($path);
@@ -158,7 +154,8 @@ class PostController extends Controller
 
     public function myPost()
     {
-        $posts = Post::where('userId', Session::get('id'))->get();
+        $posts = $this->currentUser->posts;
         return view('posts.myPost', compact('posts'));
+        
     }
 }

@@ -40,10 +40,10 @@ Route::post('/auth/resetPassword', [AuthController::class, 'resetPassword'])->na
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 Route::get('/posts/mypost', [PostController::class, 'myPost'])->name('posts.myPost');
 Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
-Route::get('/posts/edit/{id}', [PostController::class, 'edit'])->name('posts.edit');
+Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('posts.edit');
 Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
 
-Route::post('/posts/update/{id}', [PostController::class, 'update'])->name('posts.update');
+Route::post('/posts/{id}/update', [PostController::class, 'update'])->name('posts.update');
 Route::post('/posts/create', [PostController::class, 'store'])->name('posts.createPost');
 
 
