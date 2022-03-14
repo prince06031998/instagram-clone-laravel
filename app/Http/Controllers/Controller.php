@@ -13,14 +13,15 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     protected $currentUser;
-    
+
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
             // fetch session and use it in entire class with constructor
-            $this->currentUser = User::where('id', Session::get('id'))->first();
-            
+            if (Session::has('id'))
+                $this->currentUser = User::where('id', Session::get('id'))->first();
+
             return $next($request);
-            });
+        });
     }
 }
