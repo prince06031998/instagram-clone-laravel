@@ -19,13 +19,16 @@ class checkAuth
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     //protected $currentUser;
-    
+
     public function handle(Request $request, Closure $next)
     {
-        
+
         if (Session::has('id')) {
-         
-            
+
+            $country = $request->segment(1) == 'hello';
+
+            // add it to the request
+            $request->merge(compact('country'));
             return $next($request);
         } else
             return redirect()->route('auth.login');

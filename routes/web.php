@@ -46,10 +46,6 @@ Route::post('/auth/loginAction', [AuthController::class, 'loginAction'])->name('
 Route::get('/auth/register', [AuthController::class, 'create'])->name('auth.register');
 Route::post('/auth/register', [AuthController::class, 'store'])->name('auth.store_register');
 
-
 //post
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index')->middleware('checkAuth');
 
-
-
-Route::get('/test', [PostController::class, 'test'])->name('test');

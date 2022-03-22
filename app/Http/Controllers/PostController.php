@@ -110,25 +110,22 @@ class PostController extends Controller
     {
         $this->validate($request, [
             'status' => 'required',
-            
+
         ]);
         $images = array();
         if ($files = $request->file('images')) {
             foreach ($files as $file) {
                 $name = $file->getClientOriginalName();
-                $path = public_path('images/'.$name);
+                $path = public_path('images/' . $name);
                 if (File::exists($path)) {
                     unlink($path);
                 }
                 $file->move('images', $name);
                 $images[] = $name;
             }
-        }
-        else
-        {
-            $get = Post::where('id',$id)->first();
+        } else {
+            $get = Post::where('id', $id)->first();
             $images = $get->images;
-
         }
 
         Post::where('id', $id)->update([
@@ -156,6 +153,7 @@ class PostController extends Controller
     {
         $posts = $this->currentUser->posts;
         return view('posts.myPost', compact('posts'));
-        
     }
+
+   
 }
