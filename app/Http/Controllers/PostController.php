@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Session;
 use DB;
 use Carbon\Carbon;
+use App\Models\User;
+use File;
 
 class PostController extends Controller
 {
@@ -18,7 +20,7 @@ class PostController extends Controller
     public function index()
     {
         $post = Post::all();
-        return view('posts.index',compact('post'));
+        return view('posts.index', compact('post'));
     }
 
     /**
@@ -75,7 +77,7 @@ class PostController extends Controller
     public function show($id)
 
     {
-        $post = Post::where('id',$id)->first();
+        $post = Post::where('id', $id)->first();
         return view('posts.show', compact('post'));
     }
 
@@ -85,9 +87,16 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit($id)
     {
-        //
+
+        $post = Post::where('id', $id)->first();
+
+        if ($this->currentUser->id ==  $post->userId) {
+            return view('posts.edit', compact('post'));
+        } else {
+            return redirect('/posts/mypost')->with('mssg', 'this place is not for you');
+        }
     }
 
     /**
@@ -97,9 +106,36 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, $id)
     {
-        //update post
+        $this->validate($request, [
+            'status' => 'required',
+
+        ]);
+        $images = array();
+        if ($files = $request->file('images')) {
+            foreach ($files as $file) {
+                $name = $file->getClientOriginalName();
+                $path = public_path('images/' . $name);
+                if (File::exists($path)) {
+                    unlink($path);
+                }
+                $file->move('images', $name);
+                $images[] = $name;
+            }
+        } else {
+            $get = Post::where('id', $id)->first();
+            $images = $get->images;
+        }
+
+        Post::where('id', $id)->update([
+            'status' => $request->status,
+            'images' => $images,
+            'userId' => Session::get('id'),
+            'updated_at' => Carbon::now('Asia/Ho_Chi_Minh')
+        ]);
+
+        return redirect()->route('posts.myPost')->with('mssg', 'updated post success');
     }
 
     /**
@@ -113,9 +149,11 @@ class PostController extends Controller
         //
     }
 
-    public function myPost(){
-         $posts = Post::where('userId', Session::get('id'))->get();
-         return view('posts.myPost',compact('posts'));
-        
+    public function myPost()
+    {
+        $posts = $this->currentUser->posts;
+        return view('posts.myPost', compact('posts'));
     }
+
+   
 }
